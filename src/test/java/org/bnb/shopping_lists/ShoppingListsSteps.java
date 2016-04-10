@@ -5,6 +5,10 @@ import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import org.bnb.shopping_list.Context;
+import org.bnb.shopping_list.NewShoppingListUseCase;
+import org.bnb.shopping_list.ShoppingList;
+import org.bnb.shopping_list.User;
 
 import java.util.Optional;
 

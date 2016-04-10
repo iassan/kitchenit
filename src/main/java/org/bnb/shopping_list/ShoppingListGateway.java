@@ -1,4 +1,4 @@
-package org.bnb.shopping_lists;
+package org.bnb.shopping_list;
 
 import java.util.Optional;
 

@@ -1,5 +1,9 @@
 package org.bnb.shopping_lists;
 
+import org.bnb.shopping_list.ShoppingList;
+import org.bnb.shopping_list.ShoppingListGateway;
+import org.bnb.shopping_list.User;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
