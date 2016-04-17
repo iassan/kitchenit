@@ -75,6 +75,41 @@ public class ShoppingListsSteps {
         ShoppingList shoppingList = Context.shoppingListGateway.findByUserAndName(user, shoppingListName).get();
 
         assertThat(shoppingList.contains(itemName)).isTrue();
-        assertThat(shoppingList.getItems().get(itemName)).isEqualTo(quantity);
+        assertThat(shoppingList.getItemQuantity(itemName)).isEqualTo(quantity);
+    }
+
+    @And("^the user has rights to delete this list$")
+    public void theUserHasRightsToDeleteThisList() {
+        // user owns the list, noting else needs to be done
+    }
+
+    @When("^the user requests deleting the list$")
+    public void theUserRequestsDeletingTheList(){
+        shoppingListManagementUseCase.deleteList(shoppingListName);
+    }
+
+    @Then("^this list is deleted$")
+    public void thisListIsDeleted(){
+        Optional<ShoppingList> shoppingList = Context.shoppingListGateway.findByUserAndName(user, shoppingListName);
+
+        assertThat(shoppingList.isPresent()).isFalse();
+    }
+
+    @And("^this list contains the item$")
+    public void thisListContainsTheItem() {
+        ShoppingList shoppingList = Context.shoppingListGateway.findByUserAndName(user, shoppingListName).get();
+        shoppingList.add(itemName, 1);
+        Context.shoppingListGateway.save(user, shoppingList);
+    }
+
+    @When("^the user requests removing the item from the list$")
+    public void theUserRequestsRemovingTheItemFromTheList() {
+        shoppingListManagementUseCase.removeItemFromList(shoppingListName, itemName);
+    }
+
+    @Then("^the list no longer contains the item$")
+    public void theListNoLongerContainsTheItem() {
+        ShoppingList shoppingList = Context.shoppingListGateway.findByUserAndName(user, shoppingListName).get();
+        assertThat(shoppingList.contains(itemName)).isFalse();
     }
 }

@@ -13,15 +13,23 @@ public class InMemoryShoppingListGateway implements ShoppingListGateway {
 	private Map<User, Map<String, ShoppingList>> shoppingLists = new HashMap<>();
 
 	@Override
-	public Optional<ShoppingList> findByUserAndName(User user, String listName) {
-		return Optional.ofNullable(shoppingLists.getOrDefault(user, new HashMap<>()).get(listName));
+	public Optional<ShoppingList> findByUserAndName(User user, String shoppingListName) {
+		return Optional.ofNullable(shoppingLists.getOrDefault(user, new HashMap<>()).get(shoppingListName));
 	}
 
 	@Override
-	public void save(User user, ShoppingList shoppingList) {
+	public ShoppingList save(User user, ShoppingList shoppingList) {
 		if (!shoppingLists.containsKey(user)) {
 			shoppingLists.put(user, new HashMap<>());
 		}
 		shoppingLists.get(user).put(shoppingList.getListName(), shoppingList);
+		return shoppingList;
+	}
+
+	@Override
+	public void delete(User user, String shoppingListName) {
+		if (shoppingLists.containsKey(user)) {
+			shoppingLists.get(user).remove(shoppingListName);
+		}
 	}
 }

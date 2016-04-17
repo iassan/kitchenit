@@ -17,15 +17,21 @@ public class ShoppingList {
 		return listName;
 	}
 
-	public void add(String itemName, int quantity) {
+	public ShoppingList add(String itemName, int quantity) {
 		items.put(itemName, quantity);
+		return this;
 	}
 
-	public Map<String, Integer> getItems() {
-		return items;
+	public ShoppingList remove(String itemName) {
+		items.remove(itemName);
+		return this;
 	}
 
 	public boolean contains(String itemName) {
 		return items.containsKey(itemName);
+	}
+
+	public Integer getItemQuantity(String itemName) {
+		return items.getOrDefault(itemName, 0);
 	}
 }
