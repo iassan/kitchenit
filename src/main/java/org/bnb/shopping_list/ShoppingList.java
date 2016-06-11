@@ -18,7 +18,7 @@ public class ShoppingList {
 	}
 
 	public ShoppingList add(String itemName, int quantity) {
-		items.put(itemName, quantity);
+		items.merge(itemName, quantity, Integer::sum);
 		return this;
 	}
 

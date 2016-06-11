@@ -16,6 +16,7 @@ Feature: Shopping lists
   Scenario Outline: User can add item to the shopping list
     Given a logged in user
     And a shopping list
+    And an item
     And the user has rights to modify this list
     And this list contains <quantity> of this item
     When the user requests adding <new quantity> of this item to the list
@@ -24,7 +25,6 @@ Feature: Shopping lists
       | quantity | new quantity | final quantity |
       | 0        | 1            | 1              |
       | 1        | 1            | 2              |
-
 
   Scenario: User can remove an item from the list
     Given a logged in user

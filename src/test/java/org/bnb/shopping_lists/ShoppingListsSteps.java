@@ -22,9 +22,9 @@ public class ShoppingListsSteps {
 
     private ShoppingListManagementUseCase shoppingListManagementUseCase = new ShoppingListManagementUseCase();
     private String itemName;
-    private int quantity;
+	private ShoppingList shoppingList;
 
-    @Before
+	@Before
     public void setup() {
         Context.shoppingListGateway = new InMemoryShoppingListGateway();
     }
@@ -54,28 +54,13 @@ public class ShoppingListsSteps {
     @And("^a shopping list$")
     public void aShoppingList() throws Throwable {
         shoppingListName = "Test list";
-        ShoppingList shoppingList = new ShoppingList(shoppingListName);
+	    shoppingList = new ShoppingList(shoppingListName);
         Context.shoppingListGateway.save(user, shoppingList);
     }
 
     @And("^the user has rights to modify this list$")
     public void theUserHasRightsToModifyThisList() {
         // user owns the list, noting else needs to be done
-    }
-
-    @When("^the user requests adding quantity of item to the list$")
-    public void theUserRequestsAddingQuantityOfItemToTheList() {
-        itemName = "Cucumber";
-        quantity = 1;
-        shoppingListManagementUseCase.addItemToList(shoppingListName, itemName, quantity);
-    }
-
-    @Then("^this new item is added to the list with given quantity$")
-    public void thisNewItemIsAddedToTheListWithGivenQuantity() {
-        ShoppingList shoppingList = Context.shoppingListGateway.findByUserAndName(user, shoppingListName).get();
-
-        assertThat(shoppingList.contains(itemName)).isTrue();
-        assertThat(shoppingList.getItemQuantity(itemName)).isEqualTo(quantity);
     }
 
     @And("^the user has rights to delete this list$")
@@ -112,4 +97,26 @@ public class ShoppingListsSteps {
         ShoppingList shoppingList = Context.shoppingListGateway.findByUserAndName(user, shoppingListName).get();
         assertThat(shoppingList.contains(itemName)).isFalse();
     }
+
+	@And("^an item$")
+	public void anItem() {
+		itemName = "itemName";
+	}
+
+    @And("^this list contains (\\d+) of this item$")
+    public void thisListContainsQuantityOfThisItem(int quantity) {
+	    shoppingList.add(itemName, quantity);
+    }
+
+	@When("^the user requests adding (\\d+) of this item to the list$")
+	public void theUserRequestsAddingNewQuantityOfThisItemToTheList(int newQuantity) {
+		shoppingListManagementUseCase.addItemToList(shoppingListName, itemName, newQuantity);
+	}
+
+	@Then("^the list contains (\\d+) of this item$")
+	public void theListContainsFinalQuantityOfThisItem(int finalQuantity) {
+		ShoppingList shoppingList = Context.shoppingListGateway.findByUserAndName(user, shoppingListName).get();
+		assertThat(shoppingList.contains(itemName)).isTrue();
+        assertThat(shoppingList.getItemQuantity(itemName)).isEqualTo(finalQuantity);
+	}
 }
