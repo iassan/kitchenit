@@ -4,7 +4,9 @@ import org.bnb.shopping_list.ShoppingList;
 import org.bnb.shopping_list.ShoppingListGateway;
 import org.bnb.shopping_list.User;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -31,5 +33,10 @@ public class InMemoryShoppingListGateway implements ShoppingListGateway {
 		if (shoppingLists.containsKey(user)) {
 			shoppingLists.get(user).remove(shoppingListName);
 		}
+	}
+
+	@Override
+	public List<ShoppingList> findByUser(User user) {
+		return new ArrayList<>(shoppingLists.get(user).values());
 	}
 }

@@ -1,5 +1,6 @@
 package org.bnb.shopping_list;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface ShoppingListGateway {
@@ -9,4 +10,6 @@ public interface ShoppingListGateway {
 	ShoppingList save(User user, ShoppingList shoppingList);
 
 	void delete(User loggedInUser, String shoppingListName);
+
+	List<ShoppingList> findByUser(User user);
 }
