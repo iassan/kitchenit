@@ -21,6 +21,9 @@ public class ShoppingList {
 	@ManyToOne
 	private User owner;
 
+	public ShoppingList() {
+	}
+
 	public ShoppingList(String listName) {
 		this.listName = listName;
 		items = new HashMap<>();

@@ -10,6 +10,6 @@ public class ShoppingListController {
 
 	@RequestMapping("/shoppingLists")
 	public List<ShoppingList> allShoppingLists() {
-		return Context.shoppingListGateway.findByUser(new User("dummy"));
+		return Context.shoppingListGateway.findByUser(new User("thor"));
 	}
 }

@@ -1,0 +1,8 @@
+spring:
+  h2.console.enabled: true
+  jpa.hibernate.ddl-auto: create-drop
+  datasource:
+    url: jdbc:h2:mem:kitchenit;DB_CLOSE_ON_EXIT=FALSE
+    username: sa
+    password: sa
+    driverClassName: org.h2.Driver
