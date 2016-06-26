@@ -1,22 +1,22 @@
 <!doctype html>
-<html ng-app>
+<html ng-app="shoppingListsApp">
 <head>
 	<title>Hello AngularJS</title>
-	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
 	<script src="lists.js"></script>
 </head>
 
 <body>
-<div ng-controller="ShoppingLists">
+<div ng-controller="ShoppingLists as shoppingLists">
 	<table>
 		<tr>
 			<td>Shopping list</td>
 			<td>Owner</td>
 		</tr>
 
-		<tr ng-repeat="shoppingList in shoppingLists">
-			<td>{{shoppingList.listName}}</td>
-			<td>{{shoppingList.owner}}</td>
+		<tr ng-repeat="list in shoppingLists.lists">
+			<td>{{list.listName}}</td>
+			<td>{{list.owner}}</td>
 		</tr>
 	</table>
 </div>
