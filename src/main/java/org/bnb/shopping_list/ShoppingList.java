@@ -3,7 +3,6 @@ package org.bnb.shopping_list;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.Transient;
 import java.util.HashMap;
 import java.util.Map;
@@ -17,9 +16,6 @@ public class ShoppingList {
 
 	@Transient
 	private Map<String, Integer> items;
-
-	@ManyToOne
-	private User owner;
 
 	public ShoppingList() {
 	}
@@ -49,13 +45,5 @@ public class ShoppingList {
 
 	public Integer getItemQuantity(String itemName) {
 		return items.getOrDefault(itemName, 0);
-	}
-
-	public void setOwner(User owner) {
-		this.owner = owner;
-	}
-
-	public User getOwner() {
-		return owner;
 	}
 }

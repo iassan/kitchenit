@@ -2,26 +2,24 @@ package org.bnb.shopping_list;
 
 public class ShoppingListManagementUseCase {
 
-	public void createNewShoppingList(User user, String listName) {
+	public void createNewShoppingList(String listName) {
 		ShoppingList shoppingList = new ShoppingList(listName);
-		Context.shoppingListGateway.save(user, shoppingList);
+		Context.shoppingListGateway.save(shoppingList);
 	}
 
 	public void deleteList(String shoppingListName) {
-		Context.shoppingListGateway.delete(Context.loggedInUser, shoppingListName);
+		Context.shoppingListGateway.delete(shoppingListName);
 	}
 
 	public void addItemToList(String shoppingListName, String itemName, int quantity) {
-		User user = Context.loggedInUser;
-		Context.shoppingListGateway.findByUserAndName(user, shoppingListName)
+		Context.shoppingListGateway.findByName(shoppingListName)
 				.map(sl -> sl.add(itemName, quantity))
-				.map(sl -> Context.shoppingListGateway.save(user, sl));
+				.map(sl -> Context.shoppingListGateway.save(sl));
 	}
 
 	public void removeItemFromList(String shoppingListName, String itemName) {
-		User user = Context.loggedInUser;
-		Context.shoppingListGateway.findByUserAndName(user, shoppingListName)
+		Context.shoppingListGateway.findByName(shoppingListName)
 				.map(sl -> sl.remove(itemName))
-				.map(sl -> Context.shoppingListGateway.save(user, sl));
+				.map(sl -> Context.shoppingListGateway.save(sl));
 	}
 }

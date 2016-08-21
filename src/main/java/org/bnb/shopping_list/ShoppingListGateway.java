@@ -1,15 +1,14 @@
 package org.bnb.shopping_list;
 
-import java.util.List;
 import java.util.Optional;
 
 public interface ShoppingListGateway {
 
-	Optional<ShoppingList> findByUserAndName(User user, String shoppingListName);
+	Optional<ShoppingList> findByName(String shoppingListName);
 
-	ShoppingList save(User user, ShoppingList shoppingList);
+	ShoppingList save(ShoppingList shoppingList);
 
-	void delete(User loggedInUser, String shoppingListName);
+	void delete(String shoppingListName);
 
-	List<ShoppingList> findByUser(User user);
+	Iterable<ShoppingList> findAll();
 }
